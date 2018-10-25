@@ -12,6 +12,10 @@ The input are either:
 * Ister config file: Partitions generated for the image
 * Packages config file : List of packages and versions (if not specified witll take the latest) to install in the image
 
+## Output
+
+img file : An OS image is simply a file. When you've created your executables (programs) that you want your embedded system to run, you need to place them somewhere where they can be loaded from. An OS image is the file that contains the OS, your executables, and any data files that might be related to your programs
+
 
 ## Getting Started
 
