@@ -14,16 +14,26 @@ The input are either:
 
 ## Output
 
-img file : An OS image is simply a file. When you've created your executables (programs) that you want your embedded system to run, you need to place them somewhere where they can be loaded from. An OS image is the file that contains the OS, your executables, and any data files that might be related to your programs
+* linux.img : Image with everything installed and ready to just create a user and password 
+* linux.iso file : Image to install on VMs or baremetal systems
 
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+If you are developing in a Linux system you can use the following container: 
+
+Or install the following basic packges: 
+https://github.com/clearlinux/clr-bundles/blob/master/bundles/os-clr-on-clr
+
+
 ### Prerequisites
 
-What things you need to install the software and how to install them
+At least have the following development packages installed 
+
+https://github.com/clearlinux/clr-bundles/blob/master/bundles/os-clr-on-clr
+
 
 ```
 Give examples
