@@ -34,58 +34,74 @@ At least have the following development packages installed
 
 https://github.com/clearlinux/clr-bundles/blob/master/bundles/os-clr-on-clr
 
+Or use the following contianer: 
+
+<TBD>
+
+
+## How to build an image
+
+## How to buidl a pacakge
+
+Imagine that you have the following repository: 
 
 ```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+libvirt/
+├── deb_base
+│   └── ubuntu
+│       ├── patches
+│       │   └── cve_fix.patch
+│       └── rules
+└── rpm_base
+    ├── centos
+    │   ├── cve_fix.patch
+    │   ├── improve_perf.patch
+    │   └── libvrit.spec
+    ├── clr
+    │   └── cve_fix.patch
+    └── fedora
+        └── cve_fix.patch
 
 ```
-Give an example
-```
 
-### And coding style tests
+The developer needs to  copy the src/Makefile.pkg
+as Makefile in libvirt/rpm_base/centos:
 
-Explain what these tests test and why
 
 ```
-Give an example
+    $ cp src/Makefile.pkg pkgs/libvirt/rpm_base/centos
+    $ cd pkgs/libvirt/rpm_base/centos
+    $ make make OS_KIND=centos
+```
+This will generate a RPMs under:
+
+```
+    libvirt/rpm_base/centos/rpms 
 ```
 
-## Deployment
+and log files under:
 
-Add additional notes about how to deploy this on a live system
+```
+    libvirt/rpm_base/centos/logs
+```
 
-## Built With
+Same thing for debian base, developer can just run 
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+```
+    $ cd libvirt/rpm_base/ubuntu
+    $ make make OS_KIND=ubuntu
+```
+This will generate DEBs under:
+
+```
+    libvirt/deb_base/ubuntu/debs
+```
+
+and log files under:
+
+```
+    libvirt/deb_base/ubuntu/logs
+```
 
 ## Contributing
 
@@ -97,17 +113,11 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Victor Rodriguez** - *initial work* - [purplebooth](https://github.com/VictorRodriguez)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+This project is licensed under the GNU GPL 2 - see the [LICENSE.md](LICENSE.md) file for details
 
