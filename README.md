@@ -1,31 +1,31 @@
 # linuxbuilder
 
-Create a Linux image based on multiple OS flavors (Centos,ClearLinux,Fedora,LFS). This project is intented for anyone that wants to build a Linux Image (img/iso/kvm/cloud) based on RPMs. 
+Linuxbuilder helps you to create a Linux image based on multiple OS flavors
+(Centos,ClearLinux,Fedora,LFS,debian). This project is intented for anyone that wants
+to build a Linux Image (img/iso/kvm/cloud) based on RPMs and DEBs. 
 
-The reason for this project is if you want to create your own custumized distribution do not pass for all the nightmare of make it with a simple command line. 
+We create this project to avoid the nightmare of create your own tools/scripts
+for the creation of your custumized distribution with a simple command lines (make). 
 
 ## Inputs
 
 The input are either: 
 
-* Remote/Local RPM repository: Point where the tool will consume all the necesary RPMs needed to generate a baisc image 
-* Ister config file: Partitions generated for the image
-* Packages config file : List of packages and versions (if not specified witll take the latest) to install in the image
+* remote_repository.conf: Point where the tool will consume all the
+  necessary RPMs/DEBs needed to generate a basic image
+
+* ister_image.conf: Index of partitions for the image
+
+* packages_list.conf : List of packages and versions (if not specified it will
+  take the latest from repository) to install in the image
+
+* localrepo/ : repo data with local deb/rpms
 
 ## Output
 
-* linux.img : Image with everything installed and ready to just create a user and password 
+* linux.img : Image with everything installed and ready to just create a user
+  and password 
 * linux.iso file : Image to install on VMs or baremetal systems
-
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-If you are developing in a Linux system you can use the following container: 
-
-Or install the following basic packges: 
-https://github.com/clearlinux/clr-bundles/blob/master/bundles/os-clr-on-clr
 
 
 ### Prerequisites
@@ -39,9 +39,33 @@ Or use the following contianer:
 <TBD>
 
 
-## How to build an image
+## How to build an standard image
 
-## How to buidl a pacakge
+* Ubuntu base image:
+
+```
+    $ make image OS_KIND=ubuntu
+    $ ls image_ubuntu.iso
+    $ ls image_ubuntu.img
+```
+
+* Centos base image:
+
+```
+    $ make image OS_KIND=centos
+    $ ls image_centos.iso
+    $ ls image_centos.img
+```
+* CLR base image:
+
+```
+    $ make image OS_KIND=clr
+    $ ls image_clr.iso
+    $ ls image_clr.img
+```
+
+
+## How to build a package
 
 Imagine that you have the following repository: 
 
@@ -67,11 +91,10 @@ libvirt/
 The developer needs to  copy the src/Makefile.pkg
 as Makefile in libvirt/rpm_base/centos:
 
-
 ```
     $ cp src/Makefile.pkg pkgs/libvirt/rpm_base/centos
     $ cd pkgs/libvirt/rpm_base/centos
-    $ make make OS_KIND=centos
+    $ make OS_KIND=centos
 ```
 This will generate a RPMs under:
 
@@ -89,7 +112,7 @@ Same thing for debian base, developer can just run
 
 ```
     $ cd libvirt/rpm_base/ubuntu
-    $ make make OS_KIND=ubuntu
+    $ make OS_KIND=ubuntu
 ```
 This will generate DEBs under:
 
@@ -102,6 +125,22 @@ and log files under:
 ```
     libvirt/deb_base/ubuntu/logs
 ```
+
+## How to build a custome image:
+
+Lets take the example of a Centos base image that we create before and libvirt:
+
+```
+    $ cd pkgs/libvirt/rpm_base/centos
+    $ make repoadd REPO_PATH=~/repo <if not specified it will use ./repo>
+    $ cat packages_list.conf | grep <libvirt> (make sure that your package is
+    on the list , the tool will install the runtime dependencies)
+    $ make image OS_KIND=centos REPO_PATH=~/repo <if not specified it will use
+    ./repo>
+    $ ls image_clr.iso
+    $ ls image_clr.img
+```
+
 
 ## Contributing
 
