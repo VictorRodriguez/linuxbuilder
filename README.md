@@ -1,11 +1,14 @@
 # linuxbuilder
 
 Linuxbuilder helps you to create a Linux image based on multiple OS flavors
-(Centos,ClearLinux,Fedora,LFS,debian). This project is intented for anyone that wants
+(Centos,ClearLinux,Fedora,LFS,debian).
+This project is intented for anyone that wants
 to build a Linux Image (img/iso/kvm/cloud) based on RPMs and DEBs. 
 
 We create this project to avoid the nightmare of create your own tools/scripts
-for the creation of your custumized distribution with a simple command lines (make). 
+for the creation of your customized distribution,
+this project provide the tools to do that
+with a simple command line (Make).
 
 ## Inputs
 
@@ -30,11 +33,15 @@ The input are either:
 
 ### Prerequisites
 
-At least have the following development packages installed 
+At least have the following development bundles and packages installed
 
-https://github.com/clearlinux/clr-bundles/blob/master/bundles/os-clr-on-clr
+*	[Bundles and Packages for ClearLinux Development](
+github.com/clearlinux/clr-bundles/blob/master/bundles/os-clr-on-clr)
 
-Or use the following contianer: 
+
+Or use the following container:
+*	[ClearLinux Container Development](https://hub.docker.com/_/clearlinux/)
+
 
 <TBD>
 
@@ -88,7 +95,7 @@ libvirt/
 
 ```
 
-The developer needs to  copy the src/Makefile.pkg
+The developer needs to copy the src/Makefile.pkg
 as Makefile in libvirt/rpm_base/centos:
 
 ```
@@ -144,17 +151,21 @@ Lets take the example of a Centos base image that we create before and libvirt:
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read
+[CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426)
+for details on our code of conduct,
+and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning.
+For the versions available, see the
+[tags on this repository](github.com/VictorRodriguez/linuxbuilder/tags).
 
 ## Authors
 
-* **Victor Rodriguez** - *initial work* - [purplebooth](https://github.com/VictorRodriguez)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **[VictorRodriguez](https://github.com/VictorRodriguez)** - *initial work*
+* **[Felipe Ruiz Garcia](https://github.com/FelipeRuizGarcia)**
 
 ## License
 
