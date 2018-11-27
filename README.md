@@ -135,20 +135,17 @@ and log files under:
 
 ## How to build a custome image:
 
-Lets take the example of a Centos base image that we create before and libvirt:
-
-```
-    $ cd pkgs/libvirt/rpm_base/centos
-    $ make repoadd REPO_PATH=~/repo <if not specified it will use ./repo>
-    $ cat packages_list.conf | grep <libvirt> (make sure that your package is
-    on the list , the tool will install the runtime dependencies)
-    $ make image OS_KIND=centos REPO_PATH=~/repo <if not specified it will use
-    ./repo>
-    $ ls image_clr.iso
-    $ ls image_clr.img
+### Example to build custom ubuntu image:
+```bash cp $YOUR_DEBS DEBS
+$ curl -O http://releases.ubuntu.com/16.04/ubuntu-16.04.5-server-amd64.iso
+$ make iso-ubuntu
 ```
 
-
+### Example to build custom centos image:
+```bash cp $YOUR_RPMS RPMS
+$ curl -O http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso
+$ make iso-centos
+````
 ## Contributing
 
 Please read
