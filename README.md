@@ -162,6 +162,7 @@ For the versions available, see the
 ## Authors
 
 * **[VictorRodriguez](https://github.com/VictorRodriguez)** - *initial work*
+* **[JesusOrnelas](https://github.com/chuyd)** - *initial work*
 * **[Felipe Ruiz Garcia](https://github.com/FelipeRuizGarcia)**
 
 ## License
