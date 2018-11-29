@@ -96,7 +96,7 @@ The developer needs to execute:
 
 ```
     $ ln -s $PWD/Makefile.toplevel $YOUR_PKG_PATH/Makefile
-    $ cd YOUR_PKG_PATH
+    $ cd $YOUR_PKG_PATH
     $ DIST_NAME=centos make build-rpm
 ```
 
