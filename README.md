@@ -15,20 +15,21 @@ with a simple command line (Make).
 The input are either: 
 
 * remote_repository.conf: Point where the tool will consume all the
-  necessary RPMs/DEBs needed to generate a basic image
+  necessary RPMs/DEBs needed to generate a basic image(WIP)
 
-* ister_image.conf: Index of partitions for the image
+* ister_image.conf: Index of partitions for the image(WIP)
 
 * packages_list.conf : List of packages and versions (if not specified it will
-  take the latest from repository) to install in the image
+  take the latest from repository) to install in the images
 
-* localrepo/ : repo data with local deb/rpms
 
 ## Output
 
-* linux.img : Image with everything installed and ready to just create a user
-  and password 
-* linux.iso file : Image to install on VMs or baremetal systems
+* ubuntu.iso : Image to install unattended Ubuntu with the deb packages from
+DEBS directory.
+
+* centos.iso file : Image to install on unattended CentOS with the RPMs from
+RPMS directory.
 
 
 ### Prerequisites
@@ -50,29 +51,26 @@ Or use the following container:
 
 * Ubuntu base image:
 
+```bash cp $YOUR_DEBS DEBS
+$ curl -O http://releases.ubuntu.com/16.04/ubuntu-16.04.5-server-amd64.iso
+$ make iso-ubuntu
 ```
-    $ make image OS_KIND=ubuntu
-    $ ls image_ubuntu.iso
-    $ ls image_ubuntu.img
+* CentOS base image:
+
+```bash cp $YOUR_RPMS RPMS
+$ curl -O http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso
+$ make iso-centos
 ```
 
-* Centos base image:
+* CLR base image: (WIP)
 
-```
-    $ make image OS_KIND=centos
-    $ ls image_centos.iso
-    $ ls image_centos.img
-```
-* CLR base image:
-
-```
+```bash
     $ make image OS_KIND=clr
     $ ls image_clr.iso
     $ ls image_clr.img
 ```
 
-
-## How to build a package
+## How to build a package (WIP)
 
 Imagine that you have the following repository: 
 
@@ -92,34 +90,26 @@ libvirt/
     │   └── cve_fix.patch
     └── fedora
         └── cve_fix.patch
-
 ```
 
-The developer needs to copy the src/Makefile.pkg
-as Makefile in libvirt/rpm_base/centos:
+The developer needs to execute:
 
 ```
-    $ cp src/Makefile.pkg pkgs/libvirt/rpm_base/centos
-    $ cd pkgs/libvirt/rpm_base/centos
-    $ make OS_KIND=centos
-```
-This will generate a RPMs under:
-
-```
-    libvirt/rpm_base/centos/rpms 
+    $ ln -s $PWD/Makefile.toplevel $YOUR_PKG_PATH/Makefile
+    $ cd YOUR_PKG_PATH
+    $ DIST_NAME=centos make build-rpm
 ```
 
-and log files under:
+This will generate a RPMs and logs under:
 
 ```
-    libvirt/rpm_base/centos/logs
+    libvirt/rpm_base/centos/results
 ```
 
 Same thing for debian base, developer can just run 
 
 ```
     $ cd libvirt/rpm_base/ubuntu
-    $ make OS_KIND=ubuntu
 ```
 This will generate DEBs under:
 
@@ -135,17 +125,6 @@ and log files under:
 
 ## How to build a custome image:
 
-### Example to build custom ubuntu image:
-```bash cp $YOUR_DEBS DEBS
-$ curl -O http://releases.ubuntu.com/16.04/ubuntu-16.04.5-server-amd64.iso
-$ make iso-ubuntu
-```
-
-### Example to build custom centos image:
-```bash cp $YOUR_RPMS RPMS
-$ curl -O http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso
-$ make iso-centos
-````
 ## Contributing
 
 Please read

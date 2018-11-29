@@ -1,0 +1,38 @@
+#-*-makefile-*-
+PKG_DIR  ?= $(shell if [ "$(DIST_NAME)" = "ubuntu" ]; then \
+						echo deb_base/ubuntu; \
+						elif [ "$(DIST_NAME)" = "centos" ]; then \
+						echo rpm_base/centos; \
+						fi )
+SPEC_FILE = $(shell cd $(PKG_DIR); ls *.spec)
+PKG_NAME = $(shell cd $(PKG_DIR); awk '/^Name:/ {print $$NF}' $(SPEC_FILE))
+MOCK_CONFIG_VAL = /etc/mock/default.cfg
+MOCK_WITH_SUDO = $(shell groups | grep mock &>/dev/null || echo sudo)
+MOCK ?= $(MOCK_WITH_SUDO) /usr/bin/mock -r $(MOCK_CONFIG_VAL)
+
+.PHONY: get-upstream clean-results build-srpm build-rpm build-deb
+
+get-upstream:
+	(cd $(PKG_DIR); \
+	spectool -g $(SPEC_FILE) )
+
+clean-results:
+	if [ -d $(PKG_DIR)/results ]; then \
+		rm -rf $(PKG_DIR)/results; \
+	fi
+
+build-srpm: clean-results
+	(cd $(PKG_DIR); \
+	$(MOCK) --buildsrpm --source=./ --spec=$(SPEC_FILE) --result=results/; \
+	ls results/*.log | xargs -I {} echo mv results/{} results/srpm-{} )
+
+build-rpm: get-upstream build-srpm
+	(cd $(PKG_DIR); \
+	$(MOCK) $(shell cd $(PKG_DIR); ls results/*.src.rpm) --nocheck \
+	--result=results/ --no-cleanup-after --uniqueext=$(PKG_NAME) )
+
+build-deb:
+	( tar -czf $(PKG_DIR).tar.gz $(PKG_DIR); \
+	cd $(PKG_DIR); \
+	debmake; \
+	dpkg-buildpackage)
