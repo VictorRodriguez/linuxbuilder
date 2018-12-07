@@ -34,7 +34,11 @@ RPMS directory.
 
 ### Prerequisites
 
-At least have the following development bundles and packages installed
+For now and as POC the tools has just been tested under Clear Linux as development
+machine, in the future support for other operating systems will be included
+
+In a Clear Linux development enviroment is necesary to at least have the following 
+development bundles and packages installed
 
 *	[Bundles and Packages for ClearLinux Development](
 github.com/clearlinux/clr-bundles/blob/master/bundles/os-clr-on-clr)
