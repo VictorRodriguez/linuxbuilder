@@ -86,7 +86,7 @@ tasksel tasksel/first multiselect Basic Ubuntu server
 d-i pkgsel/update-policy select none
 d-i pkgsel/updatedb boolean true
 #Install extra debian packages
-d-i preseed/late_command string in-target dpkg -i$(for deb in $(ls $DEB_PATH/*.deb); do \
+d-i preseed/late_command string in-target dpkg -i$(for deb in $(ls $DEB_PATH/*.deb | sed 's|^.*/||'); do \
   printf " /media/cdrom/pool/extras/$deb";\
   done)
 #Finish installation
